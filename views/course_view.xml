@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- Vue formulaire -->
+        <record id="view_ai_course_form" model="ir.ui.view">
+            <field name="name">ai.course.form</field>
+            <field name="model">ai.course</field>
+            <field name="arch" type="xml">
+                <form string="AI Course Helper">
+                    <sheet>
+
+                        <!-- Titre -->
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Titre du cours"/>
+                            </h1>
+                        </div>
+
+                        <!-- Contenu du cours -->
+                        <group string="Contenu pédagogique">
+                            <field name="content"
+                                   placeholder="Saisissez ici le contenu complet du cours..."
+                                   nolabel="1"/>
+                        </group>
+
+                        <!-- Bouton IA -->
+                        <group string="Assistant IA">
+                            <button name="generate_ai_content"
+                                    string="Générer le résumé et les questions avec l’IA"
+                                    type="object"
+                                    class="btn-primary oe_highlight"
+                                    icon="fa-magic"/>
+                        </group>
+
+                        <!-- Résultats IA -->
+                        <notebook>
+                            <page string="Résumé généré">
+                                <field name="summary"
+                                       placeholder="Le résumé généré par l’IA apparaîtra ici..."
+                                       nolabel="1"/>
+                            </page>
+
+                            <page string="Questions générées">
+                                <field name="questions"
+                                       placeholder="Les questions générées par l’IA apparaîtront ici..."
+                                       nolabel="1"/>
+                            </page>
+                        </notebook>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="action_ai_course" model="ir.actions.act_window">
+            <field name="name">AI Course Helper</field>
+            <field name="res_model">ai.course</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Menus -->
+        <menuitem id="menu_ai_course_root"
+                  name="AI Course Helper"
+                  sequence="10"/>
+
+        <menuitem id="menu_ai_course"
+                  name="Cours IA"
+                  parent="menu_ai_course_root"
+                  action="action_ai_course"/>
+
+    </data>
+</odoo>
