@@ -1,6 +1,11 @@
 import os
 from odoo import models, fields
 from openai import OpenAI
+import logging
+
+
+_logger = logging.getLogger(__name__)
+
 
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
@@ -15,11 +20,12 @@ class AICourse(models.Model):
 
     def generate_ai_content(self):
         for record in self:
+            _logger.info("=== GENERATE AI CONTENT START ===")
             if not record.content:
                 record.summary = "Veuillez saisir le contenu du cours."
                 record.questions = ""
                 continue
-
+            _logger.info("Contenu détecté, appel OpenAI...")
             prompt = f"""
             Voici le contenu d'un cours :
 
